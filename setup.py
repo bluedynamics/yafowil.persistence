@@ -32,6 +32,7 @@ setup(name='yafowil.persistence',
       install_requires=[
           'setuptools',
           'yafowil',
+          'yafowil.yaml',
       ],
       tests_require=tests_require,
       test_suite="yafowil.persistence.tests.test_suite",
