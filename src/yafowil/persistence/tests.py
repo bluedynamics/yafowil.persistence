@@ -16,7 +16,7 @@ def test_suite():
             file, 
             optionflags=optionflags,
             globs={'interact': interact,
-                   'pprint': pprint,
+                   'pprint': pprint,}
         ) for file in TESTFILES
     ])
 
