@@ -137,3 +137,50 @@ Persist form data on node attributes::
     
     >>> form_context.persistence_context.attrs['field2']
     'Value 2'
+
+
+Dict persistence
+----------------
+
+Persist form data on dict like object::
+    
+    >>> class DictPersistingFormContext(
+    ...         yafowil.persistence.PersistenceFormMixin):
+    ...     def form(self):
+    ...         form = factory(
+    ...             'form',
+    ...             name='persistenceform',
+    ...             props={
+    ...                 'action': 'http://example.com/form',
+    ...                 'persist': yafowil.persistence.dict_persistence,
+    ...             })
+    ...         form['field1'] = factory('text')
+    ...         form['field2'] = factory('text')
+    ...         form['save'] = factory(
+    ...             'submit',
+    ...             props={
+    ...                 'action': 'save',
+    ...                 'expression': True,
+    ...                 'handler': self.save,
+    ...                 'label': 'Save'
+    ...             })
+    ...         return form
+    ...     
+    ...     @instance_property
+    ...     def persistence_context(self):
+    ...         return {'field1': 'Init Val 1', 'field2': 'Init Val 2'}
+
+    >>> form_context = DictPersistingFormContext()
+    >>> form_context.persistence_context['field1']
+    'Init Val 1'
+    
+    >>> form_context.persistence_context['field2']
+    'Init Val 2'
+    
+    >>> controller = Controller(form_context.form(), request)
+    
+    >>> form_context.persistence_context['field1']
+    'Value 1'
+    
+    >>> form_context.persistence_context['field2']
+    'Value 2'
