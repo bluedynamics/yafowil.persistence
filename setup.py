@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '1.0dev'
 shortdesc = 'YAFOWIL persistence support'
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 longdesc += open(os.path.join(os.path.dirname(__file__), 'HISTORY.rst')).read()
@@ -32,7 +32,6 @@ setup(name='yafowil.persistence',
       install_requires=[
           'setuptools',
           'yafowil',
-          'yafowil.yaml',
       ],
       tests_require=tests_require,
       test_suite="yafowil.persistence.tests.test_suite",

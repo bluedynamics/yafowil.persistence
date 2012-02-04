@@ -3,13 +3,16 @@ import doctest
 from pprint import pprint
 from interlude import interact
 
+
 optionflags = doctest.NORMALIZE_WHITESPACE | \
               doctest.ELLIPSIS | \
               doctest.REPORT_ONLY_FIRST_FAILURE
 
+
 TESTFILES = [
-    '../attributes.rst',
+    '__init__.rst',
 ]
+
 
 def test_suite():
     return unittest.TestSuite([
@@ -20,3 +23,7 @@ def test_suite():
                    'pprint': pprint,}
         ) for file in TESTFILES
     ])
+
+
+if __name__ == '__main__':                                   #pragma NO COVERAGE
+    unittest.main(defaultTest='test_suite')                  #pragma NO COVERAGE

@@ -8,6 +8,6 @@ TODO
 Contributors
 ============
 
-- Jens W. Klein <jens@bluedynamics.com>
+- Jens W. Klein <jens [at] bluedynamics [dot] com>
 
-- Robert Niederrreiter <rnix@squarewave.at>
+- Robert Niederrreiter <rnix [at] squarewave [dot] at>
