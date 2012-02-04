@@ -9,6 +9,27 @@ Imports::
     >>> from yafowil.controller import Controller
     >>> from node.utils import instance_property
 
+Form creation helper::
+
+    >>> def create_form(instance, persist):
+    ...     form = factory(
+    ...         'form',
+    ...         name='persistenceform',
+    ...         props={
+    ...             'action': 'http://example.com/form',
+    ...             'persist': persist,
+    ...         })
+    ...     form['field1'] = factory('text')
+    ...     form['field2'] = factory('text')
+    ...     form['save'] = factory(
+    ...         'submit',
+    ...         props={
+    ...             'action': 'save',
+    ...             'expression': True,
+    ...             'handler': instance.save,
+    ...             'label': 'Save'
+    ...         })
+    ...     return form
 
 Attribute Persistence
 ---------------------
@@ -26,26 +47,11 @@ Form context class. Usually a zope browser page or pyramid view as class or
 similar::
 
     >>> class AttributePersistingFormContext(
-    ...         yafowil.persistence.PersistenceFormMixin):
+    ...     yafowil.persistence.PersistenceFormMixin):
+    ... 
     ...     def form(self):
-    ...         form = factory(
-    ...             'form',
-    ...             name='persistenceform',
-    ...             props={
-    ...                 'action': 'http://example.com/form',
-    ...                 'persist': yafowil.persistence.attribute_persistence,
-    ...             })
-    ...         form['field1'] = factory('text')
-    ...         form['field2'] = factory('text')
-    ...         form['save'] = factory(
-    ...             'submit',
-    ...             props={
-    ...                 'action': 'save',
-    ...                 'expression': True,
-    ...                 'handler': self.save,
-    ...                 'label': 'Save'
-    ...             })
-    ...         return form
+    ...         return create_form(
+    ...             self, yafowil.persistence.attribute_persistence)
     ...     
     ...     @instance_property
     ...     def persistence_context(self):
@@ -95,26 +101,11 @@ Persist form data on node attributes::
     >>> from node.base import AttributedNode
     
     >>> class NodePersistingFormContext(
-    ...         yafowil.persistence.PersistenceFormMixin):
+    ...     yafowil.persistence.PersistenceFormMixin):
+    ... 
     ...     def form(self):
-    ...         form = factory(
-    ...             'form',
-    ...             name='persistenceform',
-    ...             props={
-    ...                 'action': 'http://example.com/form',
-    ...                 'persist': yafowil.persistence.node_persistence,
-    ...             })
-    ...         form['field1'] = factory('text')
-    ...         form['field2'] = factory('text')
-    ...         form['save'] = factory(
-    ...             'submit',
-    ...             props={
-    ...                 'action': 'save',
-    ...                 'expression': True,
-    ...                 'handler': self.save,
-    ...                 'label': 'Save'
-    ...             })
-    ...         return form
+    ...         return create_form(
+    ...             self, yafowil.persistence.node_persistence)
     ...     
     ...     @instance_property
     ...     def persistence_context(self):
@@ -145,26 +136,11 @@ Dict persistence
 Persist form data on dict like object::
     
     >>> class DictPersistingFormContext(
-    ...         yafowil.persistence.PersistenceFormMixin):
+    ...     yafowil.persistence.PersistenceFormMixin):
+    ... 
     ...     def form(self):
-    ...         form = factory(
-    ...             'form',
-    ...             name='persistenceform',
-    ...             props={
-    ...                 'action': 'http://example.com/form',
-    ...                 'persist': yafowil.persistence.dict_persistence,
-    ...             })
-    ...         form['field1'] = factory('text')
-    ...         form['field2'] = factory('text')
-    ...         form['save'] = factory(
-    ...             'submit',
-    ...             props={
-    ...                 'action': 'save',
-    ...                 'expression': True,
-    ...                 'handler': self.save,
-    ...                 'label': 'Save'
-    ...             })
-    ...         return form
+    ...         return create_form(
+    ...             self, yafowil.persistence.dict_persistence)
     ...     
     ...     @instance_property
     ...     def persistence_context(self):
